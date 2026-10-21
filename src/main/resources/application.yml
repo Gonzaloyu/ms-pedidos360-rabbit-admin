@@ -1,0 +1,34 @@
+# Microservicio administrador de RabbitMQ.
+# Todo lo configurable vive aquí: ningún nombre ni credencial queda escrito en el código.
+
+server:
+  port: 8084
+
+spring:
+  application:
+    name: ms-pedidos360-rabbit-admin
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    connection-timeout: 3s
+
+pedidos360:
+  admin:
+    # API HTTP de administración de RabbitMQ (se usa solo para LISTAR colas).
+    management:
+      url: ${RABBITMQ_MGMT_URL:http://localhost:15672}
+      user: ${RABBITMQ_USER:guest}
+      password: ${RABBITMQ_PASSWORD:guest}
+    # Recursos del sistema: no se pueden eliminar desde la API.
+    protected-names:
+      - pedidos360.direct.exchange
+      - pedidos360.topic.exchange
+      - pedidos360.dlx.exchange
+      - notificaciones.queue
+      - cocina.queue
+      - despacho.queue
+      - notificaciones.dlq
+      - cocina.dlq
+      - despacho.dlq
