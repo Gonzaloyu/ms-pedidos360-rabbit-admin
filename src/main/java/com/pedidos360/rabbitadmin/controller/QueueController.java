@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
-/** API REST de colas. No contiene lógica: delega todo en RabbitAdminService. */
+
 @RestController
 @RequestMapping("/api/queues")
 public class QueueController {

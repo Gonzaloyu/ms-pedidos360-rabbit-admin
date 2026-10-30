@@ -121,10 +121,6 @@ public class RabbitAdminService {
         return purgados == null ? 0 : purgados;
     }
 
-    // ==================================================================
-    // EXCHANGES
-    // ==================================================================
-
     public ExchangeResponse crearExchange(CrearExchangeRequest request) {
         String nombre = validarNombre(request.name());
         exigirNoReservado(nombre);
@@ -158,10 +154,6 @@ public class RabbitAdminService {
         amqpAdmin.deleteExchange(nombre);
         log.info("[ADMIN] Exchange eliminado: {}", nombre);
     }
-
-    // ==================================================================
-    // BINDINGS
-    // ==================================================================
 
     public BindingRequest crearBinding(BindingRequest request) {
         Binding binding = construirBinding(request);
@@ -197,11 +189,6 @@ public class RabbitAdminService {
         }
         return new Binding(cola, Binding.DestinationType.QUEUE, exchange, clave, null);
     }
-
-    // ==================================================================
-    // Apoyo interno
-    // ==================================================================
-
     private void aplicarDeadLetter(QueueBuilder cola, CrearColaRequest request) {
         boolean hayExchange = tieneTexto(request.deadLetterExchange());
         boolean hayClave = tieneTexto(request.deadLetterRoutingKey());
@@ -244,7 +231,7 @@ public class RabbitAdminService {
                     .filter(c -> c.name().equals(nombre))
                     .map(ColaResponse::type)
                     .findFirst()
-                    .orElse(TIPO_CLASSIC);
+                    .orElse(null);
         } catch (ServicioNoDisponibleException e) {
             return null;
         }

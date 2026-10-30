@@ -3,7 +3,7 @@ package com.pedidos360.rabbitadmin.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-/** Datos para crear un exchange. durable es opcional (por defecto true). */
+
 public record CrearExchangeRequest(
 
         @NotBlank(message = "El nombre del exchange es obligatorio")
